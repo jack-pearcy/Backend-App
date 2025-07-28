@@ -1,7 +1,8 @@
-package entities;
+package com.example.demo.entities;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.CreationTimestamp;
 import lombok.Getter;
@@ -19,17 +20,17 @@ public class Customer {
     @Column(name = "customer_id")
     private Long id;
 
-    @Column(name = "customer_first_name")
+    @Column(name = "customer_first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "customer_last_name")
+    @Column(name = "customer_last_name", nullable = false)
     private String lastName;
-
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "postal_code")
+    @Column(name = "postal_code", nullable = false)
     private String postalCode;
-
+    @Column(name = "phone", nullable = false)
     private String phone;
 
     @Column(name = "create_date", updatable = false)
@@ -146,6 +147,16 @@ public class Customer {
 
     public void setCarts(Set<Cart> carts) {
         this.carts = carts;
+    }
+
+    public void add(Cart cart) {
+        if (cart != null) {
+            if (this.carts == null) {
+                this.carts = new HashSet<>();
+            }
+            this.carts.add(cart);
+            cart.setCustomer(this);
+        }
     }
 }
 
