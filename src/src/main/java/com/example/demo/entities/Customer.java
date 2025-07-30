@@ -1,5 +1,6 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -29,6 +30,7 @@ public class Customer {
     private String address;
 
     @Column(name = "postal_code", nullable = false)
+    @JsonProperty("postal_code")
     private String postalCode;
     @Column(name = "phone", nullable = false)
     private String phone;
@@ -51,20 +53,11 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(
-            Long id,
-            String address,
-            String postalCode,
-            String firstName,
-            String lastName,
-            String phone,
-            Division division
-    ) {
-        this.id = id;
-        this.address = address;
-        this.postalCode = postalCode;
+    public Customer(String firstName, String lastName, String address, String postalCode, String phone, Division division) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.address = address;
+        this.postalCode = postalCode;
         this.phone = phone;
         this.division = division;
     }
